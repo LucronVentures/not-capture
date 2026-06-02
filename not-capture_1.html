@@ -347,6 +347,7 @@
     </div>
     <div id="skip-actions" style="display:none;">
       <button class="btn btn-primary" onclick="logSkip()">Next document →</button>
+      <button class="btn btn-ghost" onclick="showScreen('screen-manual')">✏️ Enter this document manually</button>
     </div>
   </div>
 
@@ -567,7 +568,8 @@ async function analyzePage1(cvs) {
     localStorage.setItem('notc_reviewed_' + todayKey(), S.reviewed);
     var dot = parseDOT(S.text1);
     if (!dot) {
-      showResult(false, 'Date not detected', 'Could not read the deed of trust date. Try a closer photo or enter manually.');
+      var preview = S.text1.replace(/\n/g, ' ').trim().substring(0, 200);
+      showResult(false, 'Date not detected', 'OCR read: "' + preview + '..." — tap Enter Manually below.');
       return;
     }
     S.dotStr = dot.str; S.dotDate = dot.date;
